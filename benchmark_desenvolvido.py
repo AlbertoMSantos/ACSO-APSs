@@ -57,7 +57,7 @@ def rodar_benchmark(carga):
 
 # --- CORPO DO CÓDIGO PRINCIPAL ---
 if __name__ == "__main__":
-    carga_de_trabalho = 100000 # Você pode aumentar ou diminuir essa carga
+    carga_de_trabalho = 50000 # Você pode aumentar ou diminuir essa carga
     num_execucoes = 10
     
     resultados = {"t1": [], "t2": [], "t3": [], "t4": [], "total": []}
@@ -71,7 +71,7 @@ if __name__ == "__main__":
         resultados["t3"].append(t3)
         resultados["t4"].append(t4)
         resultados["total"].append(t_total)
-        print(f"Execução {i+1:2d}: t1={t1:.4f} | t2={t2:.4f} | t3={t3:.4f} | t4={t4:.4f} | total={t_total:.4f}")
+        print(f"Tempo de Execução {i+1:2d}: t1={t1:.4f} | t2={t2:.4f} | t3={t3:.4f} | t4={t4:.4f} | total={t_total:.4f}")
         # print(f"Execução {i+1} concluída.")
 
     # Exibindo resultados finais formatados (com 4 casas decimais)
@@ -90,5 +90,5 @@ if __name__ == "__main__":
     media_total = statistics.mean(resultados["total"])
     desvio_total = statistics.stdev(resultados["total"])
     print("-" * 40)
-    print(f"TEMPO TOTAL: {media_total:.4f} s ± {desvio_total:.4f} s")
+    print(f"TEMPO TOTAL: {sum(resultados["total"]):.4f} s")
     print("="*40)
