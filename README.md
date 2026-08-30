@@ -1,2 +1,2 @@
 # ACSO-APS01
-aps1 da disciplina de andson
+APS01 da disciplina arquitetura de computadores e sistemas operacionais com Andson Balieiro
