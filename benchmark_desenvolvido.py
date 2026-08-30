@@ -74,7 +74,7 @@ if __name__ == "__main__":
         print(f"Tempo de Execução {i+1:2d}: t1={t1:.4f} | t2={t2:.4f} | t3={t3:.4f} | t4={t4:.4f} | total={t_total:.4f}")
         # print(f"Execução {i+1} concluída.")
 
-    # Exibindo resultados finais formatados (com 4 casas decimais)
+    # Exibindo resultados finais com 4 casas decimais
     print("\n" + "="*40)
     print("RESULTADOS FINAIS (Média ± Desvio Padrão)")
     print("="*40)
