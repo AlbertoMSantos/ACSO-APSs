@@ -57,7 +57,7 @@ def rodar_benchmark(carga):
 
 # --- CORPO DO CÓDIGO PRINCIPAL ---
 if __name__ == "__main__":
-    carga_de_trabalho = 50000 # Você pode aumentar ou diminuir essa carga
+    carga_de_trabalho = 50000 # pode-se aumentar ou diminuir essa carga
     num_execucoes = 10
     
     resultados = {"t1": [], "t2": [], "t3": [], "t4": [], "total": []}
