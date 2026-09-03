@@ -47,31 +47,49 @@ def tarefa_4_primos(carga):
             primos_encontrados += 1
     return time.perf_counter() - inicio
 
+# Tarefa 5: Recursividade (Fibonacci Recursivo)
+def tarefa_5_recursao(carga):
+    inicio = time.perf_counter()
+    # A recursão de Fibonacci sem memoização cresce de forma exponencial,
+    # então a "profundidade" (n) é derivada da carga, e não igual a ela,
+    # para manter o tempo de execução em uma faixa razoável.
+    n = 20 + (carga // 5000)
+
+    def fibonacci(k):
+        if k <= 1:
+            return k
+        return fibonacci(k - 1) + fibonacci(k - 2)
+
+    fibonacci(n)
+    return time.perf_counter() - inicio
+
 def rodar_benchmark(carga):
     t1 = tarefa_1_cpu(carga)
     t2 = tarefa_2_memoria(carga)
     t3 = tarefa_3_disco(carga)
     t4 = tarefa_4_primos(carga)
-    t_total = t1 + t2 + t3 + t4
-    return t1, t2, t3, t4, t_total
+    t5 = tarefa_5_recursao(carga)
+    t_total = t1 + t2 + t3 + t4 + t5
+    return t1, t2, t3, t4, t5, t_total
 
 # --- CORPO DO CÓDIGO PRINCIPAL ---
 if __name__ == "__main__":
     carga_de_trabalho = 50000 # pode-se aumentar ou diminuir essa carga
     num_execucoes = 10
     
-    resultados = {"t1": [], "t2": [], "t3": [], "t4": [], "total": []}
+    resultados = {"t1": [], "t2": [], "t3": [], "t4": [], "t5": [], "total": []}
     
     print(f"Iniciando benchmark = {num_execucoes} execuções de {carga_de_trabalho} cargas cada\n")
     
     for i in range(num_execucoes):
-        t1, t2, t3, t4, t_total = rodar_benchmark(carga_de_trabalho)
+        t1, t2, t3, t4, t5, t_total = rodar_benchmark(carga_de_trabalho)
         resultados["t1"].append(t1)
         resultados["t2"].append(t2)
         resultados["t3"].append(t3)
         resultados["t4"].append(t4)
+        resultados["t5"].append(t5)
         resultados["total"].append(t_total)
-        print(f"Tempo de Execução {i+1:2d}: t1={t1:.4f} | t2={t2:.4f} | t3={t3:.4f} | t4={t4:.4f} | total={t_total:.4f}")
+        print(f"Tempo de Execução {i+1:2d}: t1={t1:.4f} | t2={t2:.4f} | t3={t3:.4f} | t4={t4:.4f} | t5={t5:.4f} | total={t_total:.4f}")
         # print(f"Execução {i+1} concluída.")
 
     # Exibindo resultados finais com 4 casas decimais
@@ -79,8 +97,8 @@ if __name__ == "__main__":
     print("RESULTADOS FINAIS (Média ± Desvio Padrão)")
     print("="*40)
     
-    nomes_tarefas = ["1 (Fatorial)", "2 (Memória)", "3 (Disco I/O)", "4 (Primos)"]
-    chaves = ["t1", "t2", "t3", "t4"]
+    nomes_tarefas = ["1 (Fatorial)", "2 (Memória)", "3 (Disco I/O)", "4 (Primos)", "5 (Recursão - Fibonacci)"]
+    chaves = ["t1", "t2", "t3", "t4", "t5"]
     
     for nome, chave in zip(nomes_tarefas, chaves):
         media = statistics.mean(resultados[chave])
@@ -90,5 +108,5 @@ if __name__ == "__main__":
     media_total = statistics.mean(resultados["total"])
     desvio_total = statistics.stdev(resultados["total"])
     print("-" * 40)
-    print(f"TEMPO TOTAL: {sum(resultados["total"]):.4f} s")
+    print(f"TEMPO TOTAL: {media_total:.4f} s ± {desvio_total:.4f} s")
     print("="*40)
