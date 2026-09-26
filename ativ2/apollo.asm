@@ -1,4 +1,4 @@
-	# Integrantes da equipe:
+# Integrantes da equipe:
 # Alberto Marques dos Santos (ams18)
 # Miguel Pereira de Lemos (mpl4)
 # Gustavo Nascimento de Oliveira (gno)
@@ -20,18 +20,18 @@ main:
     # ---------------------------------------------------------
     
     # Imprimir prompt_alt
-    li $v0, 4               # Syscall 4: Imprimir string
     la $a0, prompt_alt      # Carrega o endereço da string
+    li $v0, 4               # Syscall 4: Imprimir string
     syscall
     
     # Ler Altitude para $t0
     li $v0, 5               # Syscall 5: Ler inteiro
     syscall
-    move $t0, $v0           # Salva o valor lido em $t0
+    add $t0, $v0, $zero     # Salva o número lido em $t0
 
     # Imprimir prompt_vel
-    li $v0, 4               # Syscall 4: Imprimir string
     la $a0, prompt_vel      # Carrega o endereço da string
+    li $v0, 4               # Syscall 4: Imprimir string
     syscall
     
     # Ler Velocidade para $t1
@@ -43,46 +43,46 @@ main:
     # PASSO 2: LÓGICA DO ALARME 1202 (if Altitude < 5000 AND Velocidade > 1000)
     # ---------------------------------------------------------
     
-    # Para simular o AND em Assembly, usamos a "Lógica Invertida". 
-    # Se qualquer uma das condições falhar, pulamos para o próximo passo.
+    # Como é um AND, precisamos checar as duas condições. Se qualquer uma falhar, não há alarme.
     bge $t0, 5000, Check_Burn   # Se Altitude >= 5000, tá seguro dessa falha, vai pro Passo 3
     ble $t1, 1000, Check_Burn   # Se Velocidade <= 1000, tá seguro dessa falha, vai pro Passo 3
     
     # Se não pulou nas linhas acima, é porque Alt < 5000 E Vel > 1000.
     j Abortar                   # Então, pula para o Alarme 1202
 
-Check_Burn:
     # ---------------------------------------------------------
     # PASSO 3: LÓGICA BURN_BABY_BURN (if Velocidade > 100)
     # ---------------------------------------------------------
-    
+
+Check_Burn:
+
     bgt $t1, 100, Frenagem      # Se Velocidade > 100 pular para 'Frenagem'
-    j Pouso_Seguro              # Senão (menor ou igual a 100), pula para 'Pouso_Seguro'
+    j Pouso_Seguro              # Senão, pula para 'Pouso_Seguro'
 
 # =========================================================
 # LABELS DE EXECUÇÃO (Caminhos do programa)
 # =========================================================
 
 Abortar:
-    # Imprima msg_alarme e pule para Fim
+    # Imprima msg_alarme e pula para Fim
     li $v0, 4
     la $a0, msg_alarme
     syscall
-    j Fim                   # Tranca o fluxo para não rodar os códigos de baixo
+    j Fim
 
 Frenagem:
-    # Imprima msg_burn e pule para Fim
+    # Imprima msg_burn e pula para Fim
     li $v0, 4
     la $a0, msg_burn
     syscall
-    j Fim                   # Tranca o fluxo para não rodar os códigos de baixo
+    j Fim
 
 Pouso_Seguro:
-    # Imprima msg_pouso e deixe o programa continuar para Fim
+    # Imprima msg_pouso
     li $v0, 4
     la $a0, msg_pouso
     syscall
-    # Aqui não precisa do "j Fim" pois a próxima linha lida já é naturalmente a label 'Fim'
+    # Não precisa do "j Fim" aqui, a próxima linha lida já é o label 'Fim'
 
 Fim:
     # Encerra o simulador
