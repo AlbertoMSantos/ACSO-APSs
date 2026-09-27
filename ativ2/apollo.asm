@@ -30,14 +30,14 @@ main:
     add $t0, $v0, $zero     # Salva o número lido em $t0
 
     # Imprimir prompt_vel
-    la $a0, prompt_vel      # Carrega o endereço da string
-    li $v0, 4               # Syscall 4: Imprimir string
+    la $a0, prompt_vel      
+    li $v0, 4               
     syscall
     
     # Ler Velocidade para $t1
-    li $v0, 5               # Syscall 5: Ler inteiro
+    li $v0, 5               
     syscall
-    move $t1, $v0           # Salva o valor lido em $t1
+    add $t1, $v0, $zero
 
     # ---------------------------------------------------------
     # PASSO 2: LÓGICA DO ALARME 1202 (if Altitude < 5000 AND Velocidade > 1000)
@@ -47,8 +47,8 @@ main:
     bge $t0, 5000, Check_Burn   # Se Altitude >= 5000, tá seguro dessa falha, vai pro Passo 3
     ble $t1, 1000, Check_Burn   # Se Velocidade <= 1000, tá seguro dessa falha, vai pro Passo 3
     
-    # Se não pulou nas linhas acima, é porque Alt < 5000 E Vel > 1000.
-    j Abortar                   # Então, pula para o Alarme 1202
+    # Se não pulou nas linhas acima, é porque Alt < 5000 E Vel > 1000, então pula para Alarme.
+    j Alarme
 
     # ---------------------------------------------------------
     # PASSO 3: LÓGICA BURN_BABY_BURN (if Velocidade > 100)
@@ -63,7 +63,7 @@ Check_Burn:
 # LABELS DE EXECUÇÃO (Caminhos do programa)
 # =========================================================
 
-Abortar:
+Alarme:
     # Imprima msg_alarme e pula para Fim
     li $v0, 4
     la $a0, msg_alarme
