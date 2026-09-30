@@ -70,5 +70,4 @@ Este é um repositório acadêmico criado em 30 dias como parte da disciplina de
 
 ---
 
-**Autor:** Alberto M. Santos  
-**Criação:** Setembro de 2026
+**Criação:** Agosto de 2026
