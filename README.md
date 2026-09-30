@@ -1,6 +1,6 @@
 # ACSO APSs & ATIVs
 
-Repositório contendo Atividades Práticas Supervisionadas (APS) e Atividades (ATIV) da disciplina de **Arquitetura de Computadores e Sistemas Operacionais (ACSO)**.
+Repositório contendo Atividades Práticas Supervisionadas (APS) e Atividades de Monitoria (ATIV) da disciplina de **Arquitetura de Computadores e Sistemas Operacionais (ACSO)**.
 
 ## 📋 Estrutura do Repositório
 
