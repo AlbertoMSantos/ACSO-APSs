@@ -47,8 +47,8 @@ main:
     bge $t0, 5000, Check_Burn   # Se Altitude >= 5000, tá seguro dessa falha, vai pro Passo 3
     ble $t1, 1000, Check_Burn   # Se Velocidade <= 1000, tá seguro dessa falha, vai pro Passo 3
     
-    # Se não pulou nas linhas acima, é porque Alt < 5000 E Vel > 1000, então pula para Alarme.
-    j Alarme
+    # Se não pulou nas linhas acima, é porque Alt < 5000 E Vel > 1000, então pula para Abortar.
+    j Abortar
 
     # ---------------------------------------------------------
     # PASSO 3: LÓGICA BURN_BABY_BURN (if Velocidade > 100)
@@ -63,7 +63,7 @@ Check_Burn:
 # LABELS DE EXECUÇÃO (Caminhos do programa)
 # =========================================================
 
-Alarme:
+Abortar:
     # Imprima msg_alarme e pula para Fim
     li $v0, 4
     la $a0, msg_alarme
